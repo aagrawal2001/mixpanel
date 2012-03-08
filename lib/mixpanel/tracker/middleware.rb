@@ -87,7 +87,11 @@ module Mixpanel
         </script>
         <script type='text/javascript'>
           try {
-            var mpmetrics = new MixpanelLib('#{@token}');
+            var token = readCookie('override_mixpanel');
+            if (token == null) {
+              token = '#{@token}';
+            }
+            var mpmetrics = new MixpanelLib(token);
           } catch(err) {
             null_fn = function () {};
             var mpmetrics = {
